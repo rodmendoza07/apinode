@@ -15,7 +15,7 @@ userModel.getUsers = (callback) => {
             'SELECT * FROM users ORDER BY id',
             (err, rows) => {
                 if (err) {
-                    throw err;
+                    console.log(err);
                 } else {
                     callback(null, rows);
                 }
