@@ -19,7 +19,7 @@ userModel.getUsers = (callback) => {
                 if (err) { 
                     console.log(err);
                 } else {
-                    callback(null, rows);
+                    callback(null, rows[0]);
                 }
             }
         )
