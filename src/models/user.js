@@ -13,11 +13,10 @@ let userModel = {};
 userModel.getUsers = (callback) => {
     
     if (connect.Conecta()) {
-        console.log('entra');
         connect.Conecta().query(
             'SELECT * FROM users ORDER BY id',
-            (err, rows) => {
-                if (err) {
+            (err, rows) => { 
+                if (err) { 
                     console.log(err);
                 } else {
                     callback(null, rows);
