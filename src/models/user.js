@@ -1,17 +1,20 @@
 const mysql = require('mysql');
+const connect = require('../../db/connection.js');
 
-connection = mysql.createConnection({
-    host: '',
-    user: '',
-    password: '',
-    database: ''
-});
+// connection = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: '',
+//     database: 'testapimysql'
+// });
 
 let userModel = {};
 /** metodo para ver usuarios */
 userModel.getUsers = (callback) => {
-    if (connection) {
-        connection.query(
+    
+    if (connect.Conecta()) {
+        console.log('entra');
+        connect.Conecta().query(
             'SELECT * FROM users ORDER BY id',
             (err, rows) => {
                 if (err) {
