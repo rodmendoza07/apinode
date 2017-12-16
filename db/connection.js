@@ -5,9 +5,9 @@ let conn = {};
 conn.Conecta = () => {
     var connection = mysql.createConnection({
         host: 'sql.vyreyme.mx',
-        user: 'vyreym',
-        password: 'kywVM5Pa',
-        database: 'vyreym_testapi'
+        user: '',
+        password: '',
+        database: ''
     });
     return connection;
 }
