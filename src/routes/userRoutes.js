@@ -2,26 +2,23 @@ const User = require('../models/user');
 
 module.exports = function(app) {
 
-    app.use(function(req, res, next) {
-        res.header("Access-Control-Allow-Origin", "http://localhost:8080");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        next();
-    });
-
     app.get('/users', (req, res) => {
+        console.log('body: ' + JSON.stringify(req.body));
         User.getUsers((err, data) => {
             res.status(200).json(data);
         });
     });
 
-    app.post('/users', (req, res) => {
+    app.post('/newUsers', (req, res) => {
+        console.log('body: ' + JSON.stringify(req.body));
+        console.log(req.body);
         const userData = {
             names: req.body.names,
             lastnames: req.body.lastnames,
             userEmail: req.body.userEmail,
             pwd: req.body.pwd
         };
-        //console.log("userdata", userData);
+        console.log("userdata", userData);
         User.insertUser(userData, (err, data) => {
             if (data.errno) {
                 res.status(500).json({
