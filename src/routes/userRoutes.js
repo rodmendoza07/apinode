@@ -16,18 +16,18 @@ module.exports = function(app) {
         };
         //console.log("userdata", userData);
         User.insertUser(userData, (err, data) => {
-            if (data && data.InsertId) {
+            if (data.errno) {
+                res.status(500).json({
+                    success: false,
+                    errno: data.errno
+                });
+            } else {
                 res.json({
                     success: true,
                     msg: "Datos insertados",
                     data: data
                 })
-            } else {
-                res.status(500).json({
-                    success: false,
-                    msg: err
-                });
-            }
+            }                         
         });
     });
 

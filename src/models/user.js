@@ -8,12 +8,12 @@ userModel.getUsers = (callback) => {
     
     if (connect.Conecta()) {
         connect.Conecta().query(
-            'SELECT * FROM usuarios',
+            'SELECT * FROM vyreym_carefully.usuarios',
             (err, rows) => { 
                 if (err) { 
                     console.log(err);
                 } else {
-                    callback(null, rows[0]);
+                    callback(null, rows);
                 }
             }
         )
@@ -24,36 +24,16 @@ userModel.getUsers = (callback) => {
 userModel.insertUser = (userData, callback) => {
     if (connect.Conecta()) {
         console.log(userData.names);
-       // let sql = "CALL sp_newUser ('" + userData.names + "','" + userData.lastnames + "','" + userData.userEmail + "','" + userData.pwd + "');";
-       //let sql = 'CALL sp_newUser(?,?,?,?)'
-        let sql = 'INSERT INTO usuarios ('
-            + 'usr_nombre,'
-            + 'usr_paterno,'
-            + 'usr_nivelUsr_id,'
-            + 'usr_login,'
-            + 'usr_password,'
-            + 'usr_correo'
-        + ') VALUES('
-            + "'" + userData.names + "',"
-            + "'" + userData.lastnames + "',"
-            + '1,'  
-            + "'" + userData.userEmail + "',"
-            + "md5('" + userData.pwd + "'),"
-            + "'" + userData.userEmail + "',"
-        + ');'
-        connect.Conecta().query(//sql,[userData.names, userData.lastnames, userData.userEmail, userData.pwd],
-            sql,
+        let sql = 'CALL sp_newUser(?,?,?,?)'
+        connect.Conecta().query(sql,[userData.names, userData.lastnames, userData.userEmail, userData.pwd],
             (err, result) => {
                 if (err) {
-                    throw err;
+                    callback(null, err);
                 } else {
-                    callback(null, {
-                        'InsertId': result.insertId
-                    })
+                    callback(null, result[0]);
                 }
             }
         )
-        connect.Conecta().end()
     }
 };
 
