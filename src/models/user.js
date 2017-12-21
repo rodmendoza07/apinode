@@ -44,7 +44,6 @@ userModel.insertUser = (userData, callback) => {
         connect.Conecta().query(//sql,[userData.names, userData.lastnames, userData.userEmail, userData.pwd],
             sql,
             (err, result) => {
-                console.log(result);
                 if (err) {
                     throw err;
                 } else {

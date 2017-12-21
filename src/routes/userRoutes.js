@@ -16,9 +16,7 @@ module.exports = function(app) {
         };
         //console.log("userdata", userData);
         User.insertUser(userData, (err, data) => {
-            console.log(data);
             if (data && data.InsertId) {
-                console.log(data);
                 res.json({
                     success: true,
                     msg: "Datos insertados",
