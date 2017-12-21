@@ -9,14 +9,14 @@ module.exports = function(app) {
 
     app.post('/users', (req, res) => {
         const userData = {
-            id: null,
-            username: req.body.username,
-            passwd: req.body.passwd,
-            email: req.body.email,
-            created_at: null,
-            update_at: null
+            names: req.body.names,
+            lastnames: req.body.lastnames,
+            userEmail: req.body.userEmail,
+            pwd: req.body.pwd
         };
+        //console.log("userdata", userData);
         User.insertUser(userData, (err, data) => {
+            console.log(data);
             if (data && data.InsertId) {
                 console.log(data);
                 res.json({
@@ -27,7 +27,7 @@ module.exports = function(app) {
             } else {
                 res.status(500).json({
                     success: false,
-                    msg: "Error"
+                    msg: err
                 });
             }
         });

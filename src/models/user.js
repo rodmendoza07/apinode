@@ -1,12 +1,6 @@
 const mysql = require('mysql');
 const connect = require('../../db/connection.js');
 
-// connection = mysql.createConnection({
-//     host: 'localhost',
-//     user: 'root',
-//     password: '',
-//     database: 'testapimysql'
-// });
 
 let userModel = {};
 /** metodo para ver usuarios */
@@ -14,7 +8,7 @@ userModel.getUsers = (callback) => {
     
     if (connect.Conecta()) {
         connect.Conecta().query(
-            'CALL test',
+            'SELECT * FROM usuarios',
             (err, rows) => { 
                 if (err) { 
                     console.log(err);
@@ -28,10 +22,14 @@ userModel.getUsers = (callback) => {
 
 /** metodo para agregar usuarios */
 userModel.insertUser = (userData, callback) => {
-    if (connection) {
-        connection.query(
-            'INSERT INTO users SET ?', userData,
+    if (connect.Conecta()) {
+        console.log(userData.names);
+       // let sql = "CALL sp_newUser ('" + userData.names + "','" + userData.lastnames + "','" + userData.userEmail + "','" + userData.pwd + "');";
+       let sql = 'CALL sp_newUser(?,?,?,?)'
+        connect.Conecta().query(sql,[userData.names, userData.lastnames, userData.userEmail, userData.pwd],
+            //sql,
             (err, result) => {
+                console.log(result);
                 if (err) {
                     throw err;
                 } else {
@@ -41,6 +39,7 @@ userModel.insertUser = (userData, callback) => {
                 }
             }
         )
+        connect.Conecta().end()
     }
 };
 
