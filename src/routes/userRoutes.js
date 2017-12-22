@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const mail = require('../mailer.js');
 
 module.exports = function(app) {
 
@@ -10,15 +11,12 @@ module.exports = function(app) {
     });
 
     app.post('/newUsers', (req, res) => {
-        console.log('body: ' + JSON.stringify(req.body));
-        console.log(req.body);
         const userData = {
             names: req.body.names,
             lastnames: req.body.lastnames,
             userEmail: req.body.userEmail,
             pwd: req.body.pwd
         };
-        console.log("userdata", userData);
         User.insertUser(userData, (err, data) => {
             if (data.errno) {
                 res.status(500).json({
@@ -26,6 +24,35 @@ module.exports = function(app) {
                     errno: data.errno
                 });
             } else {
+                console.log("antes mail")
+                // var mailOptions = {
+                //     from: 'lr.mendozar@gmail.com',
+                //     to: 'lr.mendozar@icloud.com',
+                //     subject: 'Sending Email using Node.js',
+                //     text: 'That was easy!'
+                // };
+                // mail.envia().sendMail(mailOptions, (error, info) => {
+                //     if (error) {
+                //         console.log(error);
+                //       } else {
+                //         console.log('Email sent: ' + info.response);
+                //       }
+                // });
+                // mail.envia().send('correo',{
+                //     to: 'lr.mendozar@icloud.com', // REQUIRED. This can be a comma delimited string just like a normal email to field.  
+                //     subject: 'Test Email', // REQUIRED. 
+                //     otherProperty: 'Other Property' // All additional properties are also passed to the template as local variables. 
+                //   }, function (err) {
+                //     if (err) {
+                //       // handle error 
+                //       console.log(err);
+                //       res.send('There was an error sending the email');
+                //       return;
+                //     }
+                //     console.log("va");
+                //     res.send('Email Sent');
+                // });
+                console.log("despues mailer");
                 res.json({
                     success: true,
                     msg: "Datos insertados",
