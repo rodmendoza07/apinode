@@ -18,9 +18,10 @@ module.exports = function(app) {
         };
         User.insertUser(userData, (err, data) => {
             if (data.errno) {
+                console.log(data);
                 res.status(500).json({
                     success: false,
-                    errno: data.errno
+                    errno: data.errno,
                 });
             } else {
                 console.log("antes mail")
