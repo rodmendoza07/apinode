@@ -24,6 +24,7 @@ app.use(bodyParser.json());
  */
 
 require('./routes/userRoutes')(app);
+require('./routes/loginRoutes')(app);
 
 
 /** servidor en escucha de los puertos */

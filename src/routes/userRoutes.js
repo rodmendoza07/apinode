@@ -1,5 +1,4 @@
 const User = require('../models/user');
-const mail = require('../mailer.js');
 
 module.exports = function(app) {
 

@@ -1,7 +1,6 @@
 const mysql = require('mysql');
 const connect = require('../../db/connection.js');
 
-
 let userModel = {};
 /** metodo para ver usuarios */
 userModel.getUsers = (callback) => {
